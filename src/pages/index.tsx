@@ -3,7 +3,7 @@ import Login from "../components/Login";
 import { useEffect } from "react";
 
 const Home: React.FC = () => {
-  const [isLoggedIn, setisLoggedIn] = useState<boolean>(false);
+  const [isLoggedIn, setisLoggedIn] = useState<string | null>("false");
 
   useEffect(() => {
     setisLoggedIn(localStorage.getItem("isLoggedIn"));
