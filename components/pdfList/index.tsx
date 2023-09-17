@@ -4,12 +4,22 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const PDFList: React.FC = () => {
-  const [files, setFiles] = useState(["file1", "file2", "file3"]);
+  const [files, setFiles] = useState([]);
 
+  const handleDelete = async () => {
+    try {
+      const response = await axios.get("/api/:id");
+      console.log(response?.data);
+      setFiles(response?.data);
+    } catch (error) {
+      // console.log(error);
+    }
+  };
   const fetchPdfs = async () => {
     try {
-      const response = await axios.get("/api/pdfList");
-      console.log(response);
+      const response = await axios.get("/api/files");
+      console.log(response?.data);
+      setFiles(response?.data);
     } catch (error) {
       // console.log(error);
     }
@@ -21,10 +31,12 @@ const PDFList: React.FC = () => {
   return (
     <>
       <div className="filesDisplay">
-        {files.map((file, i) => (
+        {files?.map((file, i) => (
           <div className="files" key={i}>
             <span>{file}</span>
-            <span className="delete-btn">x</span>
+            <span className="delete-btn" onClick={handleDelete}>
+              x
+            </span>
           </div>
         ))}
       </div>

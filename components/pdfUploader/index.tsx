@@ -1,22 +1,33 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, ChangeEvent } from "react";
 import axios from "axios";
 import PDFList from "../pdfList";
 
 const PDFUploader: React.FC = () => {
-  const [file, setFile] = useState<File>();
+  const ref = useRef<HTMLInputElement>(null);
+  const [file, setFile] = useState<File | null>(null);
 
-  const handleUpload = async () => {
-    if (file) {
-      try {
-        const formData = new FormData();
-        formData.append("pdf", file);
-        console.log(formData);
-        const response = await axios.post("/api/pdfUpload", formData);
-      } catch (error) {
-        console.error("Error uploading the PDF:", error);
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e.target.files[0]);
+    }
+  };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const inputRef = ref.current!;
+    if (!inputRef.files?.length) {
+      return;
+    }
+    try {
+      const formData = new FormData();
+      for (const file of Array.from(inputRef.files ?? [])) {
+        formData.append("pdf-file", file);
       }
+      await axios.post("/api/upload", formData);
+      setFile(null);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -24,9 +35,8 @@ const PDFUploader: React.FC = () => {
     <>
       <div className="pdf-upload-container">
         <div className="upload-pdf ">
-          <button className="fileInput">
+          <div className="fileInput">
             <form
-              onSubmit={handleUpload}
               className="flex justify-center"
               action="/upload"
               method="post"
@@ -36,22 +46,31 @@ const PDFUploader: React.FC = () => {
                 id="post-file"
                 type="file"
                 accept=".pdf"
-                onChange={(e) => {
-                  setFile(e.target.files?.[0]);
-                }}
+                ref={ref}
+                onChange={handleFileChange}
               />
               <label htmlFor="post-file">
-                <div className="fileText ">Click to upload file</div>
+                <div className="fileText ">Choose file</div>
               </label>
             </form>
             <div className="select-file flex justify-center p-3">
-              <div className="select-file flex justify-center">
-                {file?.name}
-              </div>
+              {file ? (
+                <div className="select-file flex justify-center">
+                  {file?.name}
+                </div>
+              ) : (
+                <div className="select-file flex justify-center">
+                  No file chosen
+                </div>
+              )}
             </div>
-          </button>
+          </div>
           <div className="select-file">
-            {file && <button className="upload-btn">Upload</button>}
+            {file && (
+              <button onClick={handleSubmit} className="upload-btn">
+                Upload
+              </button>
+            )}
           </div>
         </div>
         <PDFList />
