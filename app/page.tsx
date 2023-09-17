@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Login from "../components/Login";
 import { useEffect } from "react";
+import PDFUploader from "@/components/pdfUploader";
 
 const Home: React.FC = () => {
   const [isLoggedIn, setisLoggedIn] = useState<string | null>("false");
@@ -13,7 +14,8 @@ const Home: React.FC = () => {
   if (isLoggedIn === "true") {
     return (
       <div>
-        <h1>Welcome to Blona</h1>
+        <h1 className="heading">Welcome to Blona</h1>
+        <PDFUploader />
       </div>
     );
   }

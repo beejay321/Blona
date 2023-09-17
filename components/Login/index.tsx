@@ -36,7 +36,7 @@ const LoginForm = () => {
   return (
     <>
       <div className="container">
-        <form className=" flex flex-col ">
+        <form className="login-form flex flex-col ">
           <h1 className="form-title">Login</h1>
           <div className=" flex flex-col ">
             <label htmlFor="">Username</label>
