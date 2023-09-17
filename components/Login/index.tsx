@@ -9,27 +9,39 @@ const LoginForm = () => {
     username: "",
     password: "",
   });
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({
+    fields: "",
+    password: "",
+    error: "",
+  });
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (form.username === "Blona" && form.password === "ToTheSky") {
+    if (form.username.length === 0 || form.password.length === 0) {
+      setError({ ...error, fields: "Fields cannot be empty" });
+    } else if (form.username === "Blona" && form.password === "ToTheSky") {
       localStorage.setItem("isLoggedIn", "true");
+      window.location.href = "/";
     } else {
-      setError("Invalid credentials. Please try again.");
+      setError({
+        ...error,
+        fields: "",
+        error:
+          "Invalid credentials. Please check that fields are filled correctly",
+      });
     }
   };
 
   return (
     <>
-      <div>
-        <h1>Login</h1>
-        <form className="py-4 flex flex-col ">
-          <div className="py-4 flex flex-col ">
+      <div className="container">
+        <form className=" flex flex-col ">
+          <h1 className="form-title">Login</h1>
+          <div className=" flex flex-col ">
             <label htmlFor="">Username</label>
             <input
-              className="border h-10"
+              className=" login-input"
               type="text"
               placeholder="John Doe"
               value={form.username}
@@ -40,18 +52,17 @@ const LoginForm = () => {
           <div className="flex flex-col">
             <label htmlFor="">Password</label>
             <input
-              className="border h-10 login-input"
+              className="login-input"
               type="password"
               placeholder="Password"
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
             />
-            {error && <p className="text-red-600">{error}</p>}
+            {error.fields && <p className="text-red-600">{error.fields}</p>}
+
+            {error && <p className="text-red-600">{error.error}</p>}
           </div>
-          <button
-            className="my-3 py-2 border w-20 bg-slate-300"
-            onClick={handleSubmit}
-          >
+          <button className="login-button" onClick={handleSubmit}>
             Login
           </button>
         </form>

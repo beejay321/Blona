@@ -2,20 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+/****** Login page *********/
 .container {
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   padding: 20px;
 }
-
+form {
+  border: 1px solid rgb(225, 225, 225);
+  border-radius: 12px;
+  box-shadow: 5px 2px 5px 3px rgb(231, 231, 231);
+  width: 35vw;
+  padding: 4rem;
+}
 .error {
   color: red;
 }
 .login-input {
+  margin: 10px 0;
   padding: 10px;
+  border: 1px solid rgb(225, 225, 225);
+  border-radius: 12px;
+  background-color: white;
 }
-
 h1 {
-  font-size: 50px;
+  font-size: 40px;
+}
+.login-button {
+  /* border: 1px solid rgb(225, 225, 225); */
+  border-radius: 12px;
+  margin: 10px 0;
+  padding: 8px;
+  background-color: aqua;
+  font-size: 20px;
 }

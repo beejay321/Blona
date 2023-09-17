@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import Login from "../components/Login";
 import { useEffect } from "react";
@@ -9,7 +10,7 @@ const Home: React.FC = () => {
     setisLoggedIn(localStorage.getItem("isLoggedIn"));
   }, []);
 
-  if (isLoggedIn) {
+  if (isLoggedIn === "true") {
     return (
       <div>
         <h1>Welcome to Blona</h1>
