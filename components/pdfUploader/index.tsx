@@ -2,10 +2,11 @@
 
 import React, { useState } from "react";
 import axios from "axios";
+import PDFList from "../pdfList";
 
 const PDFUploader: React.FC = () => {
   const [file, setFile] = useState<File>();
-  const [files, setFiles] = useState(["file1", "file2", "file3"]);
+
   const handleUpload = async () => {
     if (file) {
       try {
@@ -21,39 +22,39 @@ const PDFUploader: React.FC = () => {
 
   return (
     <>
-      <div className="upload-pdf ">
-        <button className="fileInput">
-          <form
-            className="flex flex-col align-middle"
-            action="/upload"
-            method="post"
-            encType="multipart/form-data"
-          >
-            <input
-              id="post-file"
-              type="file"
-              accept=".pdf"
-              onChange={(e) => {
-                console.log(e.target.files?.[0]);
-                setFile(e.target.files?.[0]);
-              }}
-            />
-            <label htmlFor="post-file">
-              <div className="fileText">Click to upload file</div>
-            </label>
-          </form>
-          <div className="select-file">
-            <div>{file?.name}</div>
-          </div>
-        </button>
-        <div className="filesDisplay">
-          {files.map((file, i) => (
-            <div className="files" key={i}>
-              <span>{file}</span>
-              <span className="delete-btn">x</span>
+      <div className="pdf-upload-container">
+        <div className="upload-pdf ">
+          <button className="fileInput">
+            <form
+              onSubmit={handleUpload}
+              className="flex justify-center"
+              action="/upload"
+              method="post"
+              encType="multipart/form-data"
+            >
+              <input
+                id="post-file"
+                type="file"
+                accept=".pdf"
+                onChange={(e) => {
+                  setFile(e.target.files?.[0]);
+                }}
+              />
+              <label htmlFor="post-file">
+                <div className="fileText ">Click to upload file</div>
+              </label>
+            </form>
+            <div className="select-file flex justify-center p-3">
+              <div className="select-file flex justify-center">
+                {file?.name}
+              </div>
             </div>
-          ))}
+          </button>
+          <div className="select-file">
+            {file && <button className="upload-btn">Upload</button>}
+          </div>
         </div>
+        <PDFList />
       </div>
     </>
   );

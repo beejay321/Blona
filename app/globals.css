@@ -59,38 +59,43 @@ h1 {
 .fileText {
   cursor: pointer;
   font-family: "Poppins", sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  margin-bottom: 24px;
+  padding: 10px;
+  border: 1px solid #d5d4fb;
+  border-radius: 10px;
 }
 .fileInput {
-  width: 50%;
   border-radius: 10px;
-  border: 1px solid grey;
   padding: 5px 22px;
-  /* background-color: #2b6777; */
   color: #362f62;
   cursor: pointer;
 }
-.fileInput:hover {
+.fileText:hover {
   background-color: #d5d4fb;
   box-shadow: 0px 5px 5px 0px #2b677783;
 }
 .upload-pdf {
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.pdf-upload-container {
   height: max-content;
   display: flex;
-  gap: 3.5rem;
+  gap: 4rem;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
 .filesDisplay {
-  width: 50%;
+  width: 60%;
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 10px;
-  /* background-color: #2196f3; */
   padding: 2px;
 }
 
@@ -101,6 +106,14 @@ h1 {
   font-size: 20px;
   border-radius: 20px;
   position: relative;
+}
+.upload-btn {
+  padding: 12px;
+  width: 8rem;
+  border-radius: 20px;
+  color: whitesmoke;
+  cursor: pointer;
+  background-color: #5a55f4;
 }
 .delete-btn {
   position: absolute;
