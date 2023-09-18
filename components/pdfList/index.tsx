@@ -6,9 +6,9 @@ import axios from "axios";
 const PDFList: React.FC = () => {
   const [files, setFiles] = useState([]);
 
-  const handleDelete = async () => {
+  const handleDelete = async (pdfName: string) => {
     try {
-      const response = await axios.get("/api/:id");
+      const response = await axios.get("/api/files/" + pdfName);
       console.log(response?.data);
       setFiles(response?.data);
     } catch (error) {
@@ -34,7 +34,7 @@ const PDFList: React.FC = () => {
         {files?.map((file, i) => (
           <div className="files" key={i}>
             <span>{file}</span>
-            <span className="delete-btn" onClick={handleDelete}>
+            <span className="delete-btn" onClick={() => handleDelete(file)}>
               x
             </span>
           </div>
