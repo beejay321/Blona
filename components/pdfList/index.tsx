@@ -8,7 +8,7 @@ const PDFList: React.FC = () => {
 
   const handleDelete = async (pdfName: string) => {
     try {
-      const response = await axios.get("/api/files/" + pdfName);
+      const response = await axios.delete("/api/files/" + pdfName);
       console.log(response?.data);
       setFiles(response?.data);
     } catch (error) {
