@@ -33,7 +33,7 @@ const PDFList: React.FC = () => {
       <div className="filesDisplay">
         {files?.map((file, i) => (
           <div className="files" key={i}>
-            <span>{file}</span>
+            <span className="fileName">{file}</span>
             <span className="delete-btn" onClick={() => handleDelete(file)}>
               x
             </span>
